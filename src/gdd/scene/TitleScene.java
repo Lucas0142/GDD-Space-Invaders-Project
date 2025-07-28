@@ -27,12 +27,6 @@ public class TitleScene extends JPanel {
 
     public TitleScene(Game game) {
         this.game = game;
-        // initBoard();
-        // initTitle();
-    }
-
-    private void initBoard() {
-
     }
 
     public void start() {
@@ -45,6 +39,10 @@ public class TitleScene extends JPanel {
 
         initTitle();
         initAudio();
+
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            requestFocusInWindow();
+        });
     }
 
     public void stop() {
@@ -64,30 +62,25 @@ public class TitleScene extends JPanel {
     private void initTitle() {
         var ii = new ImageIcon(IMG_TITLE);
         image = ii.getImage();
-
     }
 
     private void initAudio() {
         try {
             String filePath = "src/audio/title.wav";
             audioPlayer = new AudioPlayer(filePath);
-
             audioPlayer.play();
         } catch (Exception e) {
             System.err.println("Error with playing sound.");
         }
-
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         doDrawing(g);
     }
 
     private void doDrawing(Graphics g) {
-
         g.setColor(Color.black);
         g.fillRect(0, 0, d.width, d.height);
 
@@ -100,16 +93,28 @@ public class TitleScene extends JPanel {
         }
 
         g.setFont(g.getFont().deriveFont(32f));
-        String text = "Press SPACE to Start";
-        int stringWidth = g.getFontMetrics().stringWidth(text);
+        String mainText = "Space Invaders Extended";
+        int stringWidth = g.getFontMetrics().stringWidth(mainText);
         int x = (d.width - stringWidth) / 2;
-        // int stringHeight = g.getFontMetrics().getAscent();
-        // int y = (d.height + stringHeight) / 2;
-        g.drawString(text, x, 600);
+        g.drawString(mainText, x, 500);
+
+        g.setColor(Color.WHITE);
+        g.setFont(g.getFont().deriveFont(18f));
+
+        String scene2Text = "Press SPACE for Entry Level";
+        int scene2Width = g.getFontMetrics().stringWidth(scene2Text);
+        int scene2X = (d.width - scene2Width) / 2;
+        g.drawString(scene2Text, scene2X, 550);
+
+        String scene1Text = "Press 1 for Hard Level (Boss Fight)";
+        int scene1Width = g.getFontMetrics().stringWidth(scene1Text);
+        int scene1X = (d.width - scene1Width) / 2;
+        g.drawString(scene1Text, scene1X, 580);
 
         g.setColor(Color.gray);
         g.setFont(g.getFont().deriveFont(10f));
-        g.drawString("Game by Chayapol", 10, 650);
+        g.drawString("Game by Chayapol - Extended Edition", 10, 650);
+        g.drawString("Entry Level → Hard Level → Victory!", 10, 665);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -135,18 +140,17 @@ public class TitleScene extends JPanel {
 
         @Override
         public void keyReleased(KeyEvent e) {
-
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            System.out.println("Title.keyPressed: " + e.getKeyCode());
             int key = e.getKeyCode();
-            if (key == KeyEvent.VK_SPACE) {
-                // Load the next scene
-                game.loadScene2();
-            }
 
+            if (key == KeyEvent.VK_SPACE) {
+                game.loadScene2();
+            } else if (key == KeyEvent.VK_1) {
+                game.loadScene1();
+            }
         }
     }
 }
