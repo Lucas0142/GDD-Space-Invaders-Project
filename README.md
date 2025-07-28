@@ -10,7 +10,7 @@ Aung Khant Zaw (6611947)
 This is an extended Java implementation of the classic arcade game Space Invaders, featuring two levels, animated sprites, boss fights, and power-up systems. Players control a spaceship and must fight against waves of descending alien invaders across two different levels ending in an epic boss battle.
 
 The game extends the original Space Invaders concept with:
-* **Two complete levels** with 5 minutes of gameplay each
+* **Two complete levels** with 5+ minutes of gameplay each
 * **Multiple enemy types** with unique movement patterns and attacks
 * **Animated sprites** for all game entities
 * **Power-up system** with speed boosts and multi-shot capabilities
